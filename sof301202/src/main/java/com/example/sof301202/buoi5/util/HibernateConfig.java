@@ -1,6 +1,7 @@
 package com.example.sof301202.buoi5.util;
 
 import com.example.sof301202.buoi5.model.DieuHoa;
+import com.example.sof301202.buoi5.model.Hang;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -24,6 +25,7 @@ public class HibernateConfig {
         properties.put(Environment.SHOW_SQL, "true");
 
         conf.addAnnotatedClass(DieuHoa.class);
+        conf.addAnnotatedClass(Hang.class);
 
         conf.setProperties(properties);
         ServiceRegistry registry = new StandardServiceRegistryBuilder()

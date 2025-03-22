@@ -20,6 +20,12 @@
         Inverter: Co <input type="radio" name="inverter" value="true">
         Khong co <input type="radio" name="inverter" value="false">
         <br>
+        Hang: <select name="hang">
+                <c:forEach items="${listHang}" var="hang">
+                    <option value="${hang.id}" label="${hang.ten}"></option>
+                </c:forEach>
+            </select>
+        <br>
         <button>Add</button>
     </form>
     <br>
@@ -32,6 +38,7 @@
                 <th>Gia</th>
                 <th>Chuc nang</th>
                 <th>Inverter</th>
+                <th>Hang</th>
                 <th>Hanh dong</th>
             </tr>
         </thead>
@@ -43,6 +50,7 @@
                     <td>${dieuHoa.gia}</td>
                     <td>${dieuHoa.chucNang}</td>
                     <td>${dieuHoa.inverter ? "Co" : "Khong co"}</td>
+                    <td>${dieuHoa.hang.ten}</td>
                     <td>
                         <a href="/dieu-hoa/detail?id=${dieuHoa.id}">Detail</a>
                         <a href="/dieu-hoa/view-update?id=${dieuHoa.id}">View update</a>

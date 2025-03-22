@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: lovep
@@ -19,6 +20,12 @@
         Chuc nang: <input type="text" name="chucNang" value="${dieuHoa.chucNang}"> <br>
         Inverter: Co <input type="radio" name="inverter" value="true" ${dieuHoa.inverter == "true" ? "checked" : ""}>
         Khong co <input type="radio" name="inverter" value="false" ${dieuHoa.inverter == "false" ? "checked" : ""}>
+        <br>
+        Hang: <select name="hang">
+            <c:forEach items="${listHang}" var="hang">
+                <option value="${hang.id}" label="${hang.ten}" ${dieuHoa.hang.id == hang.id ? "selected" : ""}></option>
+            </c:forEach>
+        </select>
         <br>
         <button>Update</button>
     </form>

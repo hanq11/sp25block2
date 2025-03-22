@@ -1,7 +1,9 @@
 package com.example.sof301202.buoi5.controller;
 
 import com.example.sof301202.buoi5.model.DieuHoa;
+import com.example.sof301202.buoi5.model.Hang;
 import com.example.sof301202.buoi5.repository.DieuHoaRepository;
+import com.example.sof301202.buoi5.repository.HangRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,6 +22,8 @@ import java.io.IOException;
 })
 public class DieuHoaController extends HttpServlet {
     DieuHoaRepository dieuHoaRepository = new DieuHoaRepository();
+    HangRepository hangRepository = new HangRepository();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String uri = req.getRequestURI();
@@ -43,6 +47,7 @@ public class DieuHoaController extends HttpServlet {
     private void viewUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.valueOf(req.getParameter("id"));
         req.setAttribute("dieuHoa", dieuHoaRepository.getDetail(id));
+        req.setAttribute("listHang", hangRepository.getAll());
         req.getRequestDispatcher("/views/buoi5/view-update.jsp").forward(req, resp);
     }
 
@@ -53,6 +58,7 @@ public class DieuHoaController extends HttpServlet {
     }
 
     private void hienThi(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("listHang", hangRepository.getAll());
         req.setAttribute("danhSach", dieuHoaRepository.getAll());
         req.getRequestDispatcher("/views/buoi5/hien-thi.jsp").forward(req, resp);
     }
@@ -73,7 +79,12 @@ public class DieuHoaController extends HttpServlet {
         Float gia = Float.valueOf(req.getParameter("gia"));
         String chucNang = req.getParameter("chucNang");
         Boolean inverter = Boolean.valueOf(req.getParameter("inverter"));
-        DieuHoa dieuHoa = new DieuHoa(id, ten, gia, chucNang, inverter);
+
+        // Get hang
+        Integer idHang = Integer.valueOf(req.getParameter("hang"));
+        Hang hang = hangRepository.getDetail(idHang);
+        DieuHoa dieuHoa = new DieuHoa(id, ten, gia, chucNang, inverter, hang);
+
         dieuHoaRepository.suaDieuHoa(dieuHoa);
         resp.sendRedirect("/dieu-hoa/hien-thi");
     }
@@ -83,7 +94,11 @@ public class DieuHoaController extends HttpServlet {
         Float gia = Float.valueOf(req.getParameter("gia"));
         String chucNang = req.getParameter("chucNang");
         Boolean inverter = Boolean.valueOf(req.getParameter("inverter"));
-        DieuHoa dieuHoa = new DieuHoa(null, ten, gia, chucNang, inverter);
+        // Get hang
+        Integer idHang = Integer.valueOf(req.getParameter("hang"));
+        Hang hang = hangRepository.getDetail(idHang);
+        DieuHoa dieuHoa = new DieuHoa(null, ten, gia, chucNang, inverter, hang);
+
         dieuHoaRepository.themDieuHoa(dieuHoa);
         resp.sendRedirect("/dieu-hoa/hien-thi");
     }

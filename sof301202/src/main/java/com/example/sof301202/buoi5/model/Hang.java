@@ -11,26 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "DieuHoa")
-public class DieuHoa {
+@Table(name = "hang")
+public class Hang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "ten")
     private String ten;
-
-    @Column(name = "gia")
-    private Float gia;
-
-    @Column(name = "chuc_nang")
-    private String chucNang;
-
-    @Column(name = "inverter")
-    private Boolean inverter;
-
-    @ManyToOne
-    @JoinColumn(name = "id_hang", referencedColumnName = "id")
-    private Hang hang;
 }
-
