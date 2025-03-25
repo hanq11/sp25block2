@@ -7,6 +7,7 @@ package tutor_pro1041_sp24b2.view;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import tutor_pro1041_sp24b2.model.ChiTietSP;
 import tutor_pro1041_sp24b2.model.DongSanPham;
 import tutor_pro1041_sp24b2.model.MauSac;
 import tutor_pro1041_sp24b2.model.NhaSanXuat;
@@ -116,6 +117,28 @@ public class QuanLySanPhamView extends javax.swing.JPanel {
         String ten = txtTenSanPham.getText();
         Integer trangThai = rdoHoatDongSanPham.isSelected() ? 1 : 0;
         return new SanPham(id, ma, ten, trangThai);
+    }
+    
+    public ChiTietSP getFormChiTietSanPham() {
+        Integer id = txtIdChiTietSanPham.getText().isBlank() ? 0 : Integer.valueOf(txtIdChiTietSanPham.getText());
+        Integer namBaoHanh = Integer.valueOf(txtNamBaoHanh.getText());
+        String moTa = txtMoTa.getText();
+        Integer soLuongTon = Integer.valueOf(txtSoLuongTon.getText());
+        Integer giaNhap = Integer.valueOf(txtGiaNhap.getText());
+        Integer giaBan = Integer.valueOf(txtGiaBan.getText());
+        
+        int selectedCbbSanPhamIndex = cbbSanPham.getSelectedIndex();
+        int selectedCbbNhaSanXuatIndex = cbbNhaSanXuat.getSelectedIndex();
+        int selectedCbbMauSacIndex = cbbMauSac.getSelectedIndex();
+        int selectedCbbDongSanPhamIndex = cbbDongSanPham.getSelectedIndex();
+        
+        Integer idSanPham = sanPhamRepository.getAll().get(selectedCbbSanPhamIndex).getId();
+        Integer idNhaSanXuat = nhaSanXuatRepository.getAll().get(selectedCbbNhaSanXuatIndex).getId();
+        Integer idMauSac = mauSacRepository.getAll().get(selectedCbbMauSacIndex).getId();
+        Integer idDongSanPham = dongSanPhamRepository.getAll().get(selectedCbbDongSanPhamIndex).getId();
+        
+        return new ChiTietSP(id, idSanPham, idNhaSanXuat, idMauSac, idDongSanPham, namBaoHanh, moTa, soLuongTon, giaNhap, giaBan);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -324,11 +347,26 @@ public class QuanLySanPhamView extends javax.swing.JPanel {
                 "IdCTSP", "San pham", "Nha san xuat", "Mau sac", "Dong san pham", "Nam bao hanh", "Mo ta", "So luong ton", "Gia nhap", "Gia ban"
             }
         ));
+        tblSanPhamChiTiet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSanPhamChiTietMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblSanPhamChiTiet);
 
         btnThem.setText("Them");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         btnSua.setText("Sua");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Id CTSP");
 
@@ -497,6 +535,44 @@ public class QuanLySanPhamView extends javax.swing.JPanel {
         sanPhamRepository.suaSanPham(this.getFormSanPham());
         fillTableSanPham(sanPhamRepository.getAll());
     }//GEN-LAST:event_btnSuaSanPhamActionPerformed
+
+    private void tblSanPhamChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamChiTietMouseClicked
+        int selectedRow = tblSanPhamChiTiet.getSelectedRow();
+        String idctsp = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 0));
+        String sanPham = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 1));
+        String nhaSanXuat = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 2));
+        String mauSac = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 3));
+        String dongSanPham = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 4));
+        String namBaoHanh = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 5));
+        String moTa = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 6));
+        String soLuongTon = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 7));
+        String giaNhap = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 8));
+        String giaBan = String.valueOf(tblSanPhamChiTiet.getValueAt(selectedRow, 9));
+        
+        // Set text input
+        txtIdChiTietSanPham.setText(idctsp);
+        txtNamBaoHanh.setText(namBaoHanh);
+        txtMoTa.setText(moTa);
+        txtSoLuongTon.setText(soLuongTon);
+        txtGiaNhap.setText(giaNhap);
+        txtGiaBan.setText(giaBan);
+        
+        cbbSanPham.setSelectedItem(sanPham);
+        cbbNhaSanXuat.setSelectedItem(nhaSanXuat);
+        cbbMauSac.setSelectedItem(mauSac);
+        cbbDongSanPham.setSelectedItem(dongSanPham);
+        
+    }//GEN-LAST:event_tblSanPhamChiTietMouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        chiTietSPRepository.themChiTietSanPham(this.getFormChiTietSanPham());
+        fillTableChiTietSanPham(chiTietSPRepository.getAll());
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        chiTietSPRepository.suaChiTietSanPham(this.getFormChiTietSanPham());
+        fillTableChiTietSanPham(chiTietSPRepository.getAll());
+    }//GEN-LAST:event_btnSuaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

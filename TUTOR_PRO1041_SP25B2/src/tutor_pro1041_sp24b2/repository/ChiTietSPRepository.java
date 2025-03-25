@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import tutor_pro1041_sp24b2.model.ChiTietSP;
 import tutor_pro1041_sp24b2.model.SanPham;
 import tutor_pro1041_sp24b2.response.ChiTietSPResponse;
 import tutor_pro1041_sp24b2.util.DbConnection;
@@ -56,5 +57,69 @@ public class ChiTietSPRepository {
             e.printStackTrace();
         }
         return danhSach;
+    }
+    
+    public void themChiTietSanPham(ChiTietSP chiTietSP) {
+        String sql = """
+                        INSERT INTO [dbo].[ChiTietSP]
+                                   ([IdSP]
+                                   ,[IdNsx]
+                                   ,[IdMauSac]
+                                   ,[IdDongSP]
+                                   ,[NamBH]
+                                   ,[MoTa]
+                                   ,[SoLuongTon]
+                                   ,[GiaNhap]
+                                   ,[GiaBan])
+                             VALUES
+                                   (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                     """;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, chiTietSP.getIdSanPham());
+            ps.setInt(2, chiTietSP.getIdNhaSanXuat());
+            ps.setInt(3, chiTietSP.getIdMauSac());
+            ps.setInt(4, chiTietSP.getIdDongSanPham());
+            ps.setInt(5, chiTietSP.getNamBaoHanh());
+            ps.setString(6, chiTietSP.getMoTa());
+            ps.setInt(7, chiTietSP.getSoLuongTon());
+            ps.setInt(8, chiTietSP.getGiaNhap());
+            ps.setInt(9, chiTietSP.getGiaBan());
+            ps.execute();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void suaChiTietSanPham(ChiTietSP chiTietSP) {
+        String sql = """
+                        UPDATE [dbo].[ChiTietSP]
+                        SET [IdSP] = ?
+                           ,[IdNsx] = ?
+                           ,[IdMauSac] = ?
+                           ,[IdDongSP] = ?
+                           ,[NamBH] = ?
+                           ,[MoTa] = ?
+                           ,[SoLuongTon] = ?
+                           ,[GiaNhap] = ?
+                           ,[GiaBan] = ?
+                        WHERE Id = ?
+                     """;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, chiTietSP.getIdSanPham());
+            ps.setInt(2, chiTietSP.getIdNhaSanXuat());
+            ps.setInt(3, chiTietSP.getIdMauSac());
+            ps.setInt(4, chiTietSP.getIdDongSanPham());
+            ps.setInt(5, chiTietSP.getNamBaoHanh());
+            ps.setString(6, chiTietSP.getMoTa());
+            ps.setInt(7, chiTietSP.getSoLuongTon());
+            ps.setInt(8, chiTietSP.getGiaNhap());
+            ps.setInt(9, chiTietSP.getGiaBan());
+            ps.setInt(10, chiTietSP.getId());
+            ps.execute();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
