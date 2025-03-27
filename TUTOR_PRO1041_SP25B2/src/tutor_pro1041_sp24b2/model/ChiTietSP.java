@@ -5,6 +5,7 @@
 package tutor_pro1041_sp24b2.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ChiTietSP {
     private Integer id;
     private Integer idSanPham;

@@ -104,7 +104,7 @@ public class LoginView extends javax.swing.JFrame {
             // dang nhap thanh cong
             JOptionPane.showMessageDialog(this, "Dang nhap thanh cong");
             this.dispose();
-            new HomePageView().setVisible(true);
+            new HomePageView(txtUsername.getText()).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Dang nhap that bai");
         }

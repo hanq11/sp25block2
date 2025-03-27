@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tutor_pro1041_sp24b2.model;
+package tutor_pro1041_sp24b2.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,12 +17,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class HoaDon {
-    // id, khach hang, tinh trang, ngay tao
+public class HoaDonChiTietResponse {
     private Integer id;
-    private String tenNguoiNhan;
-    private String soDienThoai;
-    private String ngayTao;
-    private Integer tinhTrang;
+    private Integer idChiTietSanPham;
+    private String tenSanPham;
+    private String tenMauSac;
+    private Integer soLuong;
+    private Integer donGia;
+    
 }

@@ -15,8 +15,9 @@ public class HomePageView extends javax.swing.JFrame {
     /**
      * Creates new form HomePageView
      */
-    public HomePageView() {
+    public HomePageView(String tenNhanVien) {
         initComponents();
+        txtTenNhanVien.setText(tenNhanVien);
         cardLayout = (CardLayout) viewManHinh.getLayout();
     }
 
@@ -33,15 +34,17 @@ public class HomePageView extends javax.swing.JFrame {
         menu = new javax.swing.JPanel();
         btnQuanLySanPham = new javax.swing.JButton();
         btnBanHang = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnHoaDon = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtTenNhanVien = new javax.swing.JLabel();
         viewManHinh = new javax.swing.JPanel();
         banHangView1 = new tutor_pro1041_sp24b2.view.BanHangView();
         quanLySanPhamView1 = new tutor_pro1041_sp24b2.view.QuanLySanPhamView();
+        hoaDonView1 = new tutor_pro1041_sp24b2.view.HoaDonView();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 800));
-        setPreferredSize(new java.awt.Dimension(1000, 800));
         setSize(new java.awt.Dimension(1000, 800));
 
         menu.setBackground(new java.awt.Color(204, 204, 255));
@@ -61,10 +64,19 @@ public class HomePageView extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Hoa don");
+        btnHoaDon.setText("Hoa don");
+        btnHoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHoaDonActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Menu");
+
+        jLabel2.setText("Nhan Vien");
+
+        txtTenNhanVien.setText("Nhan Vien");
 
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
@@ -82,20 +94,29 @@ public class HomePageView extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBanHang)
-                            .addComponent(jButton3))))
+                            .addComponent(btnHoaDon)))
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTenNhanVien)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(23, 23, 23)
+                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtTenNhanVien))
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addGap(18, 18, 18)
                 .addComponent(btnQuanLySanPham)
                 .addGap(80, 80, 80)
                 .addComponent(btnBanHang)
                 .addGap(85, 85, 85)
-                .addComponent(jButton3)
+                .addComponent(btnHoaDon)
                 .addContainerGap(446, Short.MAX_VALUE))
         );
 
@@ -104,6 +125,7 @@ public class HomePageView extends javax.swing.JFrame {
         viewManHinh.setLayout(new java.awt.CardLayout());
         viewManHinh.add(banHangView1, "BanHang");
         viewManHinh.add(quanLySanPhamView1, "QuanLySanPham");
+        viewManHinh.add(hoaDonView1, "HoaDon");
 
         jSplitPane1.setRightComponent(viewManHinh);
 
@@ -129,50 +151,23 @@ public class HomePageView extends javax.swing.JFrame {
         cardLayout.show(viewManHinh, "BanHang");
     }//GEN-LAST:event_btnBanHangActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomePageView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomePageView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomePageView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomePageView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
+        cardLayout.show(viewManHinh, "HoaDon");
+    }//GEN-LAST:event_btnHoaDonActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HomePageView().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private tutor_pro1041_sp24b2.view.BanHangView banHangView1;
     private javax.swing.JButton btnBanHang;
+    private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnQuanLySanPham;
-    private javax.swing.JButton jButton3;
+    private tutor_pro1041_sp24b2.view.HoaDonView hoaDonView1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel menu;
     private tutor_pro1041_sp24b2.view.QuanLySanPhamView quanLySanPhamView1;
+    private javax.swing.JLabel txtTenNhanVien;
     private javax.swing.JPanel viewManHinh;
     // End of variables declaration//GEN-END:variables
 }

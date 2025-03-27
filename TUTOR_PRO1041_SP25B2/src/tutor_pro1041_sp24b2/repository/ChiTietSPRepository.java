@@ -122,4 +122,20 @@ public class ChiTietSPRepository {
             e.printStackTrace();
         }
     }
+    
+    public void suaSoLuong(ChiTietSP chiTietSP) {
+        String sql = """
+                        UPDATE [dbo].[ChiTietSP]
+                        SET [SoLuongTon] = ?
+                        WHERE Id = ?
+                     """;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, chiTietSP.getSoLuongTon());
+            ps.setInt(2, chiTietSP.getId());
+            ps.execute();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

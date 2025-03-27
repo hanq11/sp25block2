@@ -47,6 +47,32 @@ public class HoaDonRepository {
         return danhSach;
     }
     
+    public ArrayList<HoaDon> getAllChuaThanhToan() {
+        ArrayList<HoaDon> danhSach = new ArrayList<>();
+        String sql = """
+                        SELECT 
+                            Id, TenNguoiNhan, Sdt, NgayTao, TinhTrang 
+                        FROM HoaDon
+                        WHERE TinhTrang = 0;
+                     """;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                danhSach.add(new HoaDon(
+                        rs.getInt("Id"),
+                        rs.getString("TenNguoiNhan"),
+                        rs.getString("Sdt"),
+                        rs.getString("NgayTao"),
+                        rs.getInt("TinhTrang")
+                ));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return danhSach;
+    }
+    
     public void themHoaDon(HoaDon hoaDon) {
         String sql = """
                         INSERT INTO HoaDon (TenNguoiNhan, NgayTao, Sdt, TinhTrang)

@@ -19,11 +19,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class HoaDon {
-    // id, khach hang, tinh trang, ngay tao
+public class HoaDonChiTiet {
     private Integer id;
-    private String tenNguoiNhan;
-    private String soDienThoai;
-    private String ngayTao;
-    private Integer tinhTrang;
+    private Integer idHoaDon;
+    private Integer idChiTietSanPham;
+    private Integer soLuong;
+    private Integer donGia;
 }
