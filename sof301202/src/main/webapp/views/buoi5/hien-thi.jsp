@@ -60,5 +60,7 @@
             </c:forEach>
         </tbody>
     </table>
+    <a href="/dieu-hoa/phan-trang?page=${pageNumber  - 1}">Prev</a>
+    <a href="/dieu-hoa/phan-trang?page=${pageNumber  + 1}">Next</a>
 </body>
 </html>

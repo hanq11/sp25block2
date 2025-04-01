@@ -3,6 +3,7 @@ package com.example.sof301202.buoi5.repository;
 import com.example.sof301202.buoi5.model.DieuHoa;
 import com.example.sof301202.buoi5.util.HibernateConfig;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -52,5 +53,13 @@ public class DieuHoaRepository {
             session.getTransaction().rollback();
             e.printStackTrace();
         }
+    }
+
+    public List<DieuHoa> phanTrang(int page) {
+        int size = 3;
+        Query query = session.createQuery("FROM DieuHoa");
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
+        return query.list();
     }
 }

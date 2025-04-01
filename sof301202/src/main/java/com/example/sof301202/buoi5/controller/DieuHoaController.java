@@ -18,7 +18,8 @@ import java.io.IOException;
         "/dieu-hoa/view-update",
         "/dieu-hoa/delete",
         "/dieu-hoa/update",
-        "/dieu-hoa/add"
+        "/dieu-hoa/add",
+        "/dieu-hoa/phan-trang"
 })
 public class DieuHoaController extends HttpServlet {
     DieuHoaRepository dieuHoaRepository = new DieuHoaRepository();
@@ -35,7 +36,20 @@ public class DieuHoaController extends HttpServlet {
             viewUpdate(req, resp);
         } else if(uri.contains("delete")) {
             deleteDieuHoa(req, resp);
+        } else if(uri.contains("phan-trang")) {
+            phanTrang(req,resp);
         }
+    }
+
+    private void phanTrang(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int page = 0;
+        if(req.getParameter("page") != null) {
+            page = Integer.valueOf(req.getParameter("page"));
+        }
+        req.setAttribute("danhSach", dieuHoaRepository.phanTrang(page));
+        req.setAttribute("listHang", hangRepository.getAll());
+        req.setAttribute("pageNumber", page);
+        req.getRequestDispatcher("/views/buoi5/hien-thi.jsp").forward(req, resp);
     }
 
     private void deleteDieuHoa(HttpServletRequest req, HttpServletResponse resp) throws IOException {
