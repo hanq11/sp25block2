@@ -19,7 +19,8 @@ import java.io.IOException;
         "/dieu-hoa/delete",
         "/dieu-hoa/update",
         "/dieu-hoa/add",
-        "/dieu-hoa/phan-trang"
+        "/dieu-hoa/phan-trang",
+        "/dieu-hoa/tim-kiem"
 })
 public class DieuHoaController extends HttpServlet {
     DieuHoaRepository dieuHoaRepository = new DieuHoaRepository();
@@ -38,7 +39,16 @@ public class DieuHoaController extends HttpServlet {
             deleteDieuHoa(req, resp);
         } else if(uri.contains("phan-trang")) {
             phanTrang(req,resp);
+        } else if(uri.contains("tim-kiem")) {
+            timKiem(req, resp);
         }
+    }
+
+    private void timKiem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("listHang", hangRepository.getAll());
+        String ten = req.getParameter("ten");
+        req.setAttribute("danhSach", dieuHoaRepository.search(ten));
+        req.getRequestDispatcher("/views/buoi5/hien-thi.jsp").forward(req, resp);
     }
 
     private void phanTrang(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -103,9 +113,25 @@ public class DieuHoaController extends HttpServlet {
         resp.sendRedirect("/dieu-hoa/hien-thi");
     }
 
-    private void addDieuHoa(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void addDieuHoa(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String ten = req.getParameter("ten");
+        int flagError = 0;
+        if(ten.trim().length() == 0) {
+            req.setAttribute("errorTen", "Khong duoc de trong ten");
+            flagError = 1;
+        }
         Float gia = Float.valueOf(req.getParameter("gia"));
+        if(gia < 0) {
+            req.setAttribute("errorGia", "Gia phai lon hon 0");
+            flagError = 1;
+        }
+        if(flagError == 1) {
+            req.setAttribute("listHang", hangRepository.getAll());
+            req.setAttribute("danhSach", dieuHoaRepository.getAll());
+            req.getRequestDispatcher("/views/buoi5/hien-thi.jsp").forward(req, resp);
+            return;
+        }
+
         String chucNang = req.getParameter("chucNang");
         Boolean inverter = Boolean.valueOf(req.getParameter("inverter"));
         // Get hang

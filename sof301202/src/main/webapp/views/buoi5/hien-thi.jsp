@@ -12,10 +12,21 @@
     <title>Title</title>
 </head>
 <body>
+    Tim kiem theo ten:
+    <form action="/dieu-hoa/tim-kiem" method="get">
+        Ten: <input type="text" name="ten">
+        <br>
+        <button onclick="return confirm('Ban da chac chua?')">Search</button>
+    </form>
+    <br>
     Them thong tin: <br>
     <form action="/dieu-hoa/add" method="post">
-        Ten: <input type="text" name="ten"> <br>
-        Gia: <input type="text" name="gia"> <br>
+        Ten: <input type="text" name="ten">
+        <span style="color: red">${errorTen}</span>
+        <br>
+        Gia: <input type="text" name="gia">
+        <span style="color: red">${errorGia}</span>
+        <br>
         Chuc nang: <input type="text" name="chucNang"> <br>
         Inverter: Co <input type="radio" name="inverter" value="true">
         Khong co <input type="radio" name="inverter" value="false">

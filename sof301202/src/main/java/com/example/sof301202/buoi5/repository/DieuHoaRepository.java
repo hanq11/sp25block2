@@ -62,4 +62,10 @@ public class DieuHoaRepository {
         query.setMaxResults(size);
         return query.list();
     }
+
+    public List<DieuHoa> search(String ten) {
+        Query query = session.createQuery("FROM DieuHoa dh WHERE ten LIKE :ten ORDER BY dh.id DESC");
+        query.setParameter("ten", "%" + ten + "%");
+        return query.list();
+    }
 }
